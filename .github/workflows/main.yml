@@ -24,10 +24,3 @@ jobs:
         run: npm test
       - name: Move Playwright reports
         run: mv playwright-report target/site/playwright
-      - name: GitHub Pages
-        if: github.ref == 'refs/heads/main'
-        uses: JamesIves/github-pages-deploy-action@v4.5.0
-        with:
-          BRANCH: gh-pages
-          FOLDER: target/site
-          CLEAN: true
