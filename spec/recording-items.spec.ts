@@ -18,11 +18,10 @@ import { recordItem } from './todo-list-app/TodoItem';
 import { itemNames } from './todo-list-app/TodoList';
 
 describe('Recording items', () => {
-
     /**
-     * You can override the default actor name and the Serenity/JS "crew" in playwright.config.ts,
-     * or in the test scenarios themselves.
-     */
+   * You can override the default actor name and the Serenity/JS "crew" in playwright.config.ts,
+   * or in the test scenarios themselves.
+   */
     // test.use({
     //     defaultActorName: 'Serena',
     //     crew: [
@@ -32,31 +31,27 @@ describe('Recording items', () => {
     // });
 
     describe('Todo List App', () => {
-
         it('should allow me to add todo items', async ({ actor }) => {
             await actor.attemptsTo(
                 startWithAnEmptyList(),
 
                 recordItem(TODO_ITEMS[0]),
 
-                Ensure.that(itemNames(), equals([
-                    TODO_ITEMS[0],
-                ])),
+                Ensure.that(itemNames(), equals([TODO_ITEMS[0]])),
 
                 recordItem(TODO_ITEMS[1]),
 
-                Ensure.that(itemNames(), equals([
-                    TODO_ITEMS[0],
-                    TODO_ITEMS[1],
-                ])),
+                Ensure.that(itemNames(), equals([TODO_ITEMS[0], TODO_ITEMS[1]])),
 
                 // note that `equals` and all the other expectations accept
                 // either a static value or an Answerable
-                Ensure.that(persistedItemNames(), equals(itemNames())),
+                Ensure.that(persistedItemNames(), equals(itemNames()))
             );
         });
 
-        it('should clear text input field when an item is added', async ({ actor }) => {
+        it('should clear text input field when an item is added', async ({
+            actor,
+        }) => {
             await actor.attemptsTo(
                 startWithAnEmptyList(),
 
@@ -64,21 +59,28 @@ describe('Recording items', () => {
 
                 Ensure.that(Value.of(newTodoInput()), equals('')),
 
-                Ensure.that(persistedItemCalled(TODO_ITEMS[0]).name, equals(TODO_ITEMS[0])),
-                Ensure.that(persistedItemCalled(TODO_ITEMS[0]).completed, equals(false)),
+                Ensure.that(
+                    persistedItemCalled(TODO_ITEMS[0]).name,
+                    equals(TODO_ITEMS[0])
+                ),
+                Ensure.that(persistedItemCalled(TODO_ITEMS[0]).completed, equals(false))
             );
         });
 
-        it('should reflect the number of items left in the counter', async ({ actor }) => {
+        it('should reflect the number of items left in the counter', async ({
+            actor,
+        }) => {
             await actor.attemptsTo(
                 startWithAListContaining(...TODO_ITEMS),
 
                 Ensure.that(outstandingItemsCount(), equals(TODO_ITEMS.length)),
-                Ensure.that(persistedItems().length, equals(TODO_ITEMS.length)),
+                Ensure.that(persistedItems().length, equals(TODO_ITEMS.length))
             );
         });
 
-        it('should show #main and #footer sections only when list contains items', async ({ actor }) => {
+        it('should show #main and #footer sections only when list contains items', async ({
+            actor,
+        }) => {
             await actor.attemptsTo(
                 startWithAnEmptyList(),
 
@@ -88,7 +90,7 @@ describe('Recording items', () => {
                 recordItem(TODO_ITEMS[0]),
 
                 Ensure.that(mainSection(), isVisible()),
-                Ensure.that(footerSection(), isVisible()),
+                Ensure.that(footerSection(), isVisible())
             );
         });
     });

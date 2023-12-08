@@ -1,7 +1,4 @@
 {
-  "recommendations": [
-    "dbaeumer.vscode-eslint",
-    "ms-playwright.playwright"
-  ],
+  "recommendations": ["dbaeumer.vscode-eslint", "ms-playwright.playwright"],
   "unwantedRecommendations": []
 }
